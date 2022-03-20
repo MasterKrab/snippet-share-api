@@ -19,6 +19,7 @@ class Snippet(Base):
     code = Column(String(), nullable=False)
     language = Column(String(), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default='now()')
+    updated_at = Column(TIMESTAMP(timezone=True))
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
 
     user = relationship('User')

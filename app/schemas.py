@@ -55,6 +55,7 @@ class SnippetUpdate(SnippetCreate):
 class SnippetOutput(SnippetBase):
     id: int
     created_at: datetime
+    updated_at: Optional[datetime] = None
     user: Optional[UserOutput] = None
 
     class Config:

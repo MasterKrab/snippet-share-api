@@ -4,6 +4,7 @@ from app.database import get_db
 from app import models, schemas
 from app.oauth2 import optional_get_current_user, get_current_user
 from typing import List
+from sqlalchemy.sql import func
 
 router = APIRouter(prefix="/snippets", tags=["Snippets"])
 
@@ -60,7 +61,7 @@ def update_snippet(snippet: schemas.SnippetUpdate, user=Depends(get_current_user
             detail="You do not have permission to update this snippet",
         )
 
-    snippet_query.update(snippet.dict())
+    snippet_query.update({**snippet.dict(), "updated_at": func.now()})
     db.commit()
     db.refresh(snippet_to_update)
 
